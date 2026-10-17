@@ -29,8 +29,8 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
      */
     protected function gate(): void
     {
-        Gate::define('viewHorizon', function ($user) {
-            return config('horizon.enabled') && $user->can('view-horizon');
+        \Illuminate\Support\Facades\Gate::define('viewHorizon', function (?\App\Models\User $user = null) {
+            return app()->environment(config('runtime.modes'));
         });
     }
 }
