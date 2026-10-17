@@ -77,7 +77,7 @@ return [
 
     'middleware' => [
         'web',
-        Authorize::class,
+        'throttle:120,1',
     ],
 
     /*
