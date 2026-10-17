@@ -1,0 +1,13 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+Route::as('{{ name }}.')->prefix('{{ uri }}')->group(function () {
+    Route::get('/', {{ class }}Controller::class)
+        ->name('index');
+    Route::get('/{uuid}', {{ class }}DetailsController::class)
+        ->name('show');
+    Route::get('/{uuid}/form', {{ class }}FormController::class)
+        ->name('form');
+});

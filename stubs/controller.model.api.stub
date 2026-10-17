@@ -1,0 +1,92 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Actions\Api\{{ model }}\Get{{ model }}List;
+use App\Actions\Api\{{ model }}\Delete{{ model }};
+use App\Actions\Api\{{ model }}\Get{{ model }};
+use App\Actions\Api\{{ model }}\Store{{ model }};
+use App\Actions\Api\{{ model }}\Update{{ model }};
+use {{ namespacedRequests }}
+
+class {{ class }} extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        try {
+            return api_response(new Get{{ model }}List($request));
+        } catch (\Throwable $th) {
+            return api_exception($th);
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \{{ namespacedStoreRequest }}  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store({{ storeRequest }} $request)
+    {
+        try {
+            return api_response(new Store{{ model }}($request));
+        } catch (\Throwable $th) {
+            return api_exception($th);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(string $uuid)
+    {
+        try {
+            ${{ modelVariable }} = {{ model }}::uuid($uuid)->firstOrFail();
+
+            return api_response((new Get{{ model }})->setRecord(${{ modelVariable }}));
+        } catch (\Throwable $th) {
+            return api_exception($th);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, string $uuid)
+    {
+        try {
+            ${{ modelVariable }} = {{ model }}::uuid($uuid)->firstOrFail();
+
+            return api_response((new Update{{ model }})->setRecord(${{ modelVariable }}));
+        } catch (\Throwable $th) {
+            return api_exception($th);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(string $uuid)
+    {
+        try {
+            ${{ modelVariable }} = {{ model }}::uuid($uuid)->firstOrFail();
+
+            return api_response((new Delete{{ model }})->setRecord(${{ modelVariable }}));
+        } catch (\Throwable $th) {
+            return api_exception($th);
+        }
+    }
+}

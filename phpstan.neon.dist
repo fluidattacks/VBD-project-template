@@ -1,0 +1,21 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - app/
+        - tinker/
+        - config/
+        - database/
+        - routes/
+        - support/
+    level: 6
+    excludePaths:
+        - .config/
+        - .github/
+        - .phpstan/
+        - bin/
+        - stubs/
+        - vendor/
+        - tests/
+        - resources/
